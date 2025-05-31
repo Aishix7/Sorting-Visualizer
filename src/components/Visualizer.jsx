@@ -4,10 +4,13 @@ import Graph from "./Graph";
 
 import { useState } from "react";
 
-function Visualizer() {
+function Visualizer({ elementValues, setElementValues }) {
   return (
     <div>
-      <Counts />
+      <Counts
+        elementValues={elementValues}
+        setElementValues={setElementValues}
+      />
     </div>
   );
 }

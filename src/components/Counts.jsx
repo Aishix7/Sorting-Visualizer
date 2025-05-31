@@ -2,9 +2,8 @@ import React from "react";
 import { useState } from "react";
 import Graph from "./Graph";
 
-function Counts() {
+function Counts({ elementValues, setElementValues }) {
   const [elementCount, setElementCount] = useState(5);
-  const [elementValues, setElementValues] = useState(Array(5).fill(""));
   const [elementsInput, setElementsInput] = useState("");
 
   const handleCountChange = (e) => {

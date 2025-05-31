@@ -4,7 +4,10 @@ function Buttons() {
   return (
     <div className="border bg-pink-50 p-3 border-black mt-6 w-fit shadow-xl mx-auto">
       <div className="flex gap-3 justify-center">
-        <button className="border bg-purple-200 border-black p-2 font-medium text-black-700">
+        <button
+          className="border bg-purple-200 border-black p-2 font-medium text-black-700"
+          onClick={onRandomReset}
+        >
           Random Reset
         </button>
         <button className="border bg-purple-200 border-black p-2 font-medium text-black-700">

@@ -7,13 +7,32 @@ import Buttons from "./components/Buttons";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [elementValues, setElementValues] = useState(Array(5).fill(""));
 
+  const handleRandomReset = () => {
+    const nonEmptyValues = elementValues.filter((val) => val !== "");
+    if (nonEmptyValues.length === 0) return;
+
+    const shuffled = [...nonEmptyValues];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const newValues = [
+      ...shuffled,
+      ...Array(elementValues.length - shuffled.length).fill(""),
+    ];
+    setElementValues(newValues);
+  };
   return (
     <div>
       <Header />
-      <Visualizer />
-      <Buttons />
+      <Visualizer
+        elementValues={elementValues}
+        setElementValues={setElementValues}
+      />
+      <Buttons onRandomReset={handleRandomReset} />
     </div>
   );
 }
