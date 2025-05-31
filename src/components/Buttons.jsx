@@ -1,6 +1,6 @@
 import React from "react";
 
-function Buttons() {
+function Buttons({ onRandomReset }) {
   return (
     <div className="border bg-pink-50 p-3 border-black mt-6 w-fit shadow-xl mx-auto">
       <div className="flex gap-3 justify-center">
