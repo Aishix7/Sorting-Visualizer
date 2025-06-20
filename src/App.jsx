@@ -4,10 +4,13 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Visualizer from "./components/Visualizer";
 import Buttons from "./components/Buttons";
+import { SelectionSort } from "./algorithms/SelectionSort";
 import "./App.css";
 
 function App() {
   const [elementValues, setElementValues] = useState(Array(5).fill(""));
+  const [animations, setAnimations] = useState([]);
+  const [isSorting, setIsSorting] = useState(false);
 
   const handleRandomReset = () => {
     const nonEmptyValues = elementValues.filter((val) => val !== "");
@@ -25,12 +28,42 @@ function App() {
     ];
     setElementValues(newValues);
   };
+  const handleSelectAlgorithm = (algorithm) => {
+    if (isSorting) return;
+
+    const validValues = elementValues
+      .filter((val) => val !== "")
+      .map(Number)
+      .filter((num) => !isNaN(num));
+
+    if (validValues.length === 0) return;
+
+    setIsSorting(true);
+
+    if (algorithm === "selection") {
+      const { sortedArray, animations } = SelectionSort(validValues);
+      setAnimations([]);
+      setTimeout(() => {
+        setAnimations(animations);
+
+        setTimeout(() => {
+          const newValues = [
+            ...sortedArray,
+            ...Array(elementValues.length - sortedArray.length).fill(""),
+          ];
+          setElementValues(newValues);
+          setIsSorting(false);
+        }, animations.length * 100 + 100);
+      }, 50);
+    }
+  };
   return (
     <div>
-      <Header />
+      <Header onSelectAlgorithm={handleSelectAlgorithm} />
       <Visualizer
         elementValues={elementValues}
         setElementValues={setElementValues}
+        animations={animations}
       />
       <Buttons onRandomReset={handleRandomReset} />
     </div>

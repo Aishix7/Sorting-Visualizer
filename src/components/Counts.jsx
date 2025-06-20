@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Graph from "./Graph";
 
-function Counts({ elementValues, setElementValues }) {
+function Counts({ elementValues, setElementValues, animations }) {
   const [elementCount, setElementCount] = useState(5);
   const [elementsInput, setElementsInput] = useState("");
 
@@ -90,7 +90,7 @@ function Counts({ elementValues, setElementValues }) {
         </div>
       </div>
       {/* Add the Graph component below */}
-      <Graph elements={elementValues} />
+      <Graph elements={elementValues} animations={animations} />
     </>
   );
 }
