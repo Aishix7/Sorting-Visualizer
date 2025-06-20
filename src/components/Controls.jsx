@@ -10,7 +10,10 @@ function Controls({ onSelectAlgorithm }) {
         >
           Selection Sort
         </button>
-        <button className="border bg-purple-200 border-black p-2 font-medium">
+        <button
+          className="border bg-purple-200 border-black p-2 font-medium"
+          onClick={() => onSelectAlgorithm("bubble")}
+        >
           Bubble Sort
         </button>
         <button className="border bg-purple-200 border-black p-2 font-medium">
