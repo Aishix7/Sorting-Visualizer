@@ -123,6 +123,11 @@ function Graph({
           [newElements[i], newElements[j]] = [newElements[j], newElements[i]];
           newHighlights = [i, j];
           break;
+        case "overwrite":
+          const [index, value] = params;
+          newElements[index] = value;
+          newHighlights = [index];
+          break;
         default:
           break;
       }

@@ -7,6 +7,7 @@ import Buttons from "./components/Buttons";
 import { SelectionSort } from "./algorithms/SelectionSort";
 import { BubbleSort } from "./algorithms/BubbleSort";
 import { InsertionSort } from "./algorithms/InsertionSort";
+import { MergeSort } from "./algorithms/MergeSort";
 import "./App.css";
 
 function App() {
@@ -88,6 +89,10 @@ function App() {
       setAnimations(animations);
     } else if (algorithm === "insertion") {
       const { sortedArray, animations } = InsertionSort(validValues);
+      setSortedArray(sortedArray);
+      setAnimations(animations);
+    } else if (algorithm === "merge") {
+      const { sortedArray, animations } = MergeSort(validValues);
       setSortedArray(sortedArray);
       setAnimations(animations);
     }
