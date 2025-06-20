@@ -1,8 +1,5 @@
-import Counts from "../components/Counts";
-import Controls from "../components/Controls";
-
 export function SelectionSort(array) {
-  let n = array.length;
+  const n = array.length;
   const animations = [];
   const sortedArray = [...array];
   for (let i = 0; i < n - 1; i++) {

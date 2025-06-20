@@ -1,4 +1,3 @@
-import React from "react";
 import Controls from "./Controls";
 function Header({ onSelectAlgorithm }) {
   return (

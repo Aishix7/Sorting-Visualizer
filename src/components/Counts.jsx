@@ -1,8 +1,24 @@
-import React from "react";
+"use client";
 import { useState } from "react";
 import Graph from "./Graph";
 
-function Counts({ elementValues, setElementValues, animations }) {
+function Counts({
+  elementValues,
+  setElementValues,
+  onInputChange,
+  animations,
+  animationSpeed,
+  isPaused,
+  isSorting,
+  isCompleted,
+  originalArray,
+  sortedArray,
+  shouldSkipToFirst,
+  shouldSkipToLast,
+  setShouldSkipToFirst,
+  setShouldSkipToLast,
+  onAnimationComplete,
+}) {
   const [elementCount, setElementCount] = useState(5);
   const [elementsInput, setElementsInput] = useState("");
 
@@ -14,7 +30,8 @@ function Counts({ elementValues, setElementValues, animations }) {
 
       const numValue = Number(value);
       if (!isNaN(numValue) && numValue >= 5 && numValue <= 50) {
-        setElementValues(Array(numValue).fill(""));
+        const newValues = Array(numValue).fill("");
+        onInputChange(newValues);
         setElementsInput("");
       }
     }
@@ -26,7 +43,8 @@ function Counts({ elementValues, setElementValues, animations }) {
     if (numValue > 50) numValue = 50;
 
     setElementCount(numValue);
-    setElementValues(Array(numValue).fill(""));
+    const newValues = Array(numValue).fill("");
+    onInputChange(newValues);
     setElementsInput("");
   };
 
@@ -48,7 +66,7 @@ function Counts({ elementValues, setElementValues, animations }) {
       newElementValues[index] = isNaN(numVal) ? "" : numVal;
     });
 
-    setElementValues(newElementValues);
+    onInputChange(newElementValues);
   };
 
   return (
@@ -89,8 +107,21 @@ function Counts({ elementValues, setElementValues, animations }) {
           </div>
         </div>
       </div>
-      {/* Add the Graph component below */}
-      <Graph elements={elementValues} animations={animations} />
+      <Graph
+        elements={elementValues}
+        animations={animations}
+        animationSpeed={animationSpeed}
+        isPaused={isPaused}
+        isSorting={isSorting}
+        isCompleted={isCompleted}
+        originalArray={originalArray}
+        sortedArray={sortedArray}
+        shouldSkipToFirst={shouldSkipToFirst}
+        shouldSkipToLast={shouldSkipToLast}
+        setShouldSkipToFirst={setShouldSkipToFirst}
+        setShouldSkipToLast={setShouldSkipToLast}
+        onAnimationComplete={onAnimationComplete}
+      />
     </>
   );
 }
