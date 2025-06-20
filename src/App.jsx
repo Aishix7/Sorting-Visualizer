@@ -8,6 +8,7 @@ import { SelectionSort } from "./algorithms/SelectionSort";
 import { BubbleSort } from "./algorithms/BubbleSort";
 import { InsertionSort } from "./algorithms/InsertionSort";
 import { MergeSort } from "./algorithms/MergeSort";
+import { QuickSort } from "./algorithms/QuickSort";
 import "./App.css";
 
 function App() {
@@ -93,6 +94,10 @@ function App() {
       setAnimations(animations);
     } else if (algorithm === "merge") {
       const { sortedArray, animations } = MergeSort(validValues);
+      setSortedArray(sortedArray);
+      setAnimations(animations);
+    } else if (algorithm === "quick") {
+      const { sortedArray, animations } = QuickSort(validValues);
       setSortedArray(sortedArray);
       setAnimations(animations);
     }

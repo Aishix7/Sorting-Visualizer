@@ -19,6 +19,7 @@ function Graph({
 }) {
   const [displayElements, setDisplayElements] = useState(elements);
   const [highlightedIndices, setHighlightedIndices] = useState([]);
+  const [pivotIndex, setPivotIndex] = useState(-1);
   const [currentStep, setCurrentStep] = useState(0);
   const timeoutRef = useRef(null);
 
@@ -35,6 +36,7 @@ function Graph({
       setDisplayElements(elements);
       setCurrentStep(0);
       setHighlightedIndices([]);
+      setPivotIndex(-1);
     }
   }, [elements, isSorting]);
 
@@ -48,6 +50,7 @@ function Graph({
       setDisplayElements(newValues);
       setCurrentStep(0);
       setHighlightedIndices([]);
+      setPivotIndex(-1);
       setShouldSkipToFirst(false);
     }
   }, [shouldSkipToFirst, originalArray, elements.length, setShouldSkipToFirst]);
@@ -62,6 +65,7 @@ function Graph({
       setDisplayElements(newValues);
       setCurrentStep(animations.length);
       setHighlightedIndices([]);
+      setPivotIndex(-1);
       setShouldSkipToLast(false);
       if (isSorting) {
         onAnimationComplete();
@@ -94,6 +98,7 @@ function Graph({
     const runAnimation = () => {
       if (currentStep >= animations.length) {
         setHighlightedIndices([]);
+        setPivotIndex(-1);
         onAnimationComplete();
         return;
       }
@@ -101,6 +106,7 @@ function Graph({
       const [action, ...params] = animations[currentStep];
       const newElements = [...displayElements];
       let newHighlights = [];
+      let newPivot = pivotIndex;
 
       switch (action) {
         case "compare":
@@ -111,6 +117,10 @@ function Graph({
           break;
         case "select-element":
           newHighlights = [params[0]];
+          break;
+        case "select-pivot":
+          newPivot = params[0];
+          newHighlights = [];
           break;
         case "deselect-min":
           newHighlights = [];
@@ -128,11 +138,16 @@ function Graph({
           newElements[index] = value;
           newHighlights = [index];
           break;
+        case "partition-complete":
+          newHighlights = [params[0]];
+          newPivot = -1;
+          break;
         default:
           break;
       }
 
       setHighlightedIndices(newHighlights);
+      setPivotIndex(newPivot);
       setDisplayElements(newElements);
       setCurrentStep((prev) => prev + 1);
 
@@ -161,6 +176,7 @@ function Graph({
     isSorting,
     animationSpeed,
     displayElements,
+    pivotIndex,
     shouldSkipToFirst,
     shouldSkipToLast,
     onAnimationComplete,
@@ -180,25 +196,31 @@ function Graph({
       className="mt-8 border border-gray-300 shadow-xl h-[70vh] flex items-end justify-center bg-white p-2"
       style={{ gap: "2px" }}
     >
-      {validElements.map((value, index) => (
-        <div
-          key={index}
-          className={`transition-colors flex items-end ${
-            highlightedIndices.includes(index)
-              ? "bg-yellow-400"
-              : "bg-green-500 hover:bg-green-600"
-          }`}
-          style={{
-            width: `${50 / validElements.length}%`,
-            height: `${(value / maxHeight) * 100}%`,
-          }}
-          title={`Value: ${value}`}
-        >
-          <span className="mx-auto text-xs text-white font-medium">
-            {value}
-          </span>
-        </div>
-      ))}
+      {validElements.map((value, index) => {
+        let bgColor = "bg-green-500 hover:bg-green-600";
+
+        if (pivotIndex === index) {
+          bgColor = "bg-red-500";
+        } else if (highlightedIndices.includes(index)) {
+          bgColor = "bg-yellow-400";
+        }
+
+        return (
+          <div
+            key={index}
+            className={`transition-colors flex items-end ${bgColor}`}
+            style={{
+              width: `${50 / validElements.length}%`,
+              height: `${(value / maxHeight) * 100}%`,
+            }}
+            title={`Value: ${value}${pivotIndex === index ? " (Pivot)" : ""}`}
+          >
+            <span className="mx-auto text-xs text-white font-medium">
+              {value}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }

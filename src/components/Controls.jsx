@@ -28,7 +28,10 @@ function Controls({ onSelectAlgorithm }) {
         >
           Merge Sort
         </button>
-        <button className="border bg-purple-200 border-black p-2 font-medium">
+        <button
+          className="border bg-purple-200 border-black p-2 font-medium"
+          onClick={() => onSelectAlgorithm("quick")}
+        >
           Quick Sort
         </button>
       </div>
