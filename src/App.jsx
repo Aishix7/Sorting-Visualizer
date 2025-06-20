@@ -25,7 +25,6 @@ function App() {
 
   const handleInputChange = (newValues) => {
     setElementValues(newValues);
-    // Reset all states when user changes input
     setAnimations([]);
     setIsSorting(false);
     setIsPaused(false);
@@ -52,7 +51,6 @@ function App() {
     ];
     setElementValues(newValues);
 
-    // Reset all animation states
     setAnimations([]);
     setIsSorting(false);
     setIsPaused(false);
@@ -131,7 +129,6 @@ function App() {
     setShouldSkipToLast(false);
     setIsCompleted(true);
 
-    // Keep the sorted array displayed
     const newValues = [
       ...sortedArray,
       ...Array(elementValues.length - sortedArray.length).fill(""),

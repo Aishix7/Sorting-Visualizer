@@ -30,7 +30,6 @@ function Graph({
 
   const maxHeight = Math.max(...validElements, 10);
 
-  // Update display elements when elements change
   useEffect(() => {
     if (!isSorting) {
       setDisplayElements(elements);
@@ -40,7 +39,6 @@ function Graph({
     }
   }, [elements, isSorting]);
 
-  // Handle skip to first
   useEffect(() => {
     if (shouldSkipToFirst && originalArray.length > 0) {
       const newValues = [
@@ -55,7 +53,6 @@ function Graph({
     }
   }, [shouldSkipToFirst, originalArray, elements.length, setShouldSkipToFirst]);
 
-  // Handle skip to last
   useEffect(() => {
     if (shouldSkipToLast && sortedArray.length > 0) {
       const newValues = [
@@ -81,7 +78,6 @@ function Graph({
     isSorting,
   ]);
 
-  // Main animation logic
   useEffect(() => {
     if (!animations || animations.length === 0 || !isSorting) {
       return;
@@ -151,12 +147,10 @@ function Graph({
       setDisplayElements(newElements);
       setCurrentStep((prev) => prev + 1);
 
-      // Calculate delay: speed 1 = 500ms, speed 100 = 50ms
       const delay = 550 - animationSpeed * 5;
       timeoutRef.current = setTimeout(runAnimation, delay);
     };
 
-    // Clear any existing timeout before starting new one
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -182,7 +176,6 @@ function Graph({
     onAnimationComplete,
   ]);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
