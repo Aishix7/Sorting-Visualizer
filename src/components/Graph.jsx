@@ -109,6 +109,9 @@ function Graph({
         case "select-min":
           newHighlights = [params[0]];
           break;
+        case "select-element":
+          newHighlights = [params[0]];
+          break;
         case "deselect-min":
           newHighlights = [];
           break;

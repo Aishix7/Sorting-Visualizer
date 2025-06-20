@@ -16,7 +16,10 @@ function Controls({ onSelectAlgorithm }) {
         >
           Bubble Sort
         </button>
-        <button className="border bg-purple-200 border-black p-2 font-medium">
+        <button
+          className="border bg-purple-200 border-black p-2 font-medium"
+          onClick={() => onSelectAlgorithm("insertion")}
+        >
           Insertion Sort
         </button>
         <button className="border bg-purple-200 border-black p-2 font-medium">

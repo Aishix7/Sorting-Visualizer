@@ -6,6 +6,7 @@ import Visualizer from "./components/Visualizer";
 import Buttons from "./components/Buttons";
 import { SelectionSort } from "./algorithms/SelectionSort";
 import { BubbleSort } from "./algorithms/BubbleSort";
+import { InsertionSort } from "./algorithms/InsertionSort";
 import "./App.css";
 
 function App() {
@@ -83,6 +84,10 @@ function App() {
       setAnimations(animations);
     } else if (algorithm === "bubble") {
       const { sortedArray, animations } = BubbleSort(validValues);
+      setSortedArray(sortedArray);
+      setAnimations(animations);
+    } else if (algorithm === "insertion") {
+      const { sortedArray, animations } = InsertionSort(validValues);
       setSortedArray(sortedArray);
       setAnimations(animations);
     }
